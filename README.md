@@ -4,6 +4,8 @@ This is a simple **Next.js** application that fetches real-time **weather data**
 
 This project is also **Dockerized**, serving as a demonstration of containerizing web applications using **Docker**.
 
+
+
 The main focus was to use AI to generate sample source-code for inital dashboard (typescript, html, tailwindcss) as the MVP, then I'd leverage the openWeather API for fetching data and returning the values to be displayed. From here, the application was able to be tested for functionality before using docker to <b>dockerize<b> the application.
 
 ---
@@ -34,13 +36,18 @@ The main focus was to use AI to generate sample source-code for inital dashboard
 ![weather-app dashboard sample](image.png)
 ---
 
+#DockerFile Image Repo for reference: https://hub.docker.com/r/jjrox2167/nextjs-weather-app
+
+##Docker pull command
+docker pull jjrox2167/nextjs-weather-app
+
 ## 🔑 Setup & Installation
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/nextjs-weather-dashboard.git
-cd nextjs-weather-dashboard
+git clone https://github.com/jjrox2167/dockerized-weatherapp.git
+cd app
 
 2. Install dependencies
 npm install
