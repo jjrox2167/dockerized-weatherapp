@@ -39,6 +39,7 @@ The main focus was to use AI to generate sample source-code for inital dashboard
 #DockerFile Image Repo for reference: https://hub.docker.com/r/jjrox2167/nextjs-weather-app
 
 ##Docker pull command
+<br  />
 docker pull jjrox2167/nextjs-weather-app
 
 ## 🔑 Setup & Installation
