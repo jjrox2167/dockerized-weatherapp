@@ -1,0 +1,43 @@
+# Stage 1: Build the Next.js application
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# Copy package.json and package-lock.json to leverage Docker cache
+COPY package.json package-lock.json ./
+
+# Install dependencies, avoiding dev dependencies in final image
+RUN npm ci
+
+# Copy the rest of the application files
+COPY . .
+
+# Build the Next.js app for production
+RUN npm run build
+
+# Stage 2: Create the production-ready image
+FROM node:18-alpine AS runner
+
+WORKDIR /app
+
+# Set environment variables
+ENV NODE_ENV production
+
+# Create a non-root user for security
+RUN addgroup --system --gid 1001 nextjs-user && \
+    adduser --system --uid 1001 nextjs-user && \
+    chown -R nextjs-user:nextjs-user /app
+
+# Copy the standalone output from the builder stage
+COPY --from=builder --chown=nextjs-user:nextjs-user /app/public ./public
+COPY --from=builder --chown=nextjs-user:nextjs-user /app/.next/standalone ./
+COPY --from=builder --chown=nextjs-user:nextjs-user /app/.next/static ./.next/static
+
+# Expose the port Next.js runs on
+EXPOSE 3000
+
+# Set the non-root user
+USER nextjs-user
+
+# Command to run the application
+CMD ["node", "server.js"]
